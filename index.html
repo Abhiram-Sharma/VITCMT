@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Chennai Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+#bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Places canvas behind other elements */
+    pointer-events: none; /* Ensures clicks pass through to cards */
+}
+        body {
+            background-color: #000;
+            color: #ab9002;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            transition: opacity 0.1s;
+        }
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px 0;
+        }
+        .card {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 200px;
+            text-decoration: none;
+            color: #FFD700;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.5);
+        }
+        .card i {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+        .card h2 {
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+footer {
+    text-align: center;
+    padding: 20px;
+background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(30px);
+}
+
+footer a {
+    color: #FFD700;
+    font-size: 3em;
+}
+
+footer a:hover {
+    color: #FFFFFF;
+}
+    </style>
+</head>
+<body>
+    <header>
+            <svg width="1500" height="300" id="gcmsSvg">
+        <!-- Definitions for gradients and mask -->
+        <defs>
+            <!-- Linear gradient for the top layer stroke -->
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color: #ff0000;" />
+                <stop offset="50%" style="stop-color: #00ff00;" />
+                <stop offset="100%" style="stop-color: #0000ff;" />
+            </linearGradient>
+
+            <!-- Radial gradient for the mask circle (fading effect) -->
+            <radialGradient id="maskGradient">
+                <stop offset="0%" style="stop-color: white; stop-opacity: 1;" />
+                <stop offset="100%" style="stop-color: white; stop-opacity: 0;" />
+            </radialGradient>
+            <!-- Mask: black rectangle with a fading white circle -->
+            <mask id="hoverMask">
+                <rect width="100%" height="100%" fill="black" />
+                <circle id="maskCircle" r="120" fill="url(#maskGradient)" cx="-100" cy="-100" />
+            </mask>
+        </defs>
+
+        <!-- Bottom layer: semi-transparent white stroke, thinner border -->
+        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" 
+              font-family="Arial" font-size="75" font-weight="bold" 
+              fill="none" stroke="rgba(255, 215, 0, 0.5)" stroke-width="1">
+            Vellore Institute of Technology
+        </text>
+
+        <!-- Top layer: gradient stroke with mask applied, thinner border -->
+        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" 
+              font-family="Arial" font-size="75" font-weight="bold" 
+              fill="none" stroke="url(#gradient)" stroke-width="1" mask="url(#hoverMask)">
+            Vellore Institute of Technology
+        </text>
+    </svg>
+
+    </header>
+    <section class="cards">
+        <a href="https://dev-vit-faculty.tiram.app/" class="card teacher">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h2>Teacher</h2>
+        </a>
+        <a href="https://dev-vit-student.tiram.app/" class="card student">
+            <i class="fas fa-user-graduate"></i>
+            <h2>Student</h2>
+        </a>
+        <a href="https://dev-vit-admin-1.tiram.app/" class="card admin">
+            <i class="fas fa-user-tie"></i>
+            <h2>Admin</h2>
+        </a>
+    </section>
+<footer>
+<p>
+      &copy; 2025 VIT Chennai Campus. All rights reserved.<br />
+      This website is a digital initiative of the Software Development Center.
+    </p>
+    <a href="https://github.com" target="_blank" title="View on GitHub" aria-label="View on GitHub">
+        <i class="fab fa-github"></i>
+    </a>
+</footer>
+    <script>
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.scrollY;
+            var windowHeight = window.innerHeight;
+            var opacity = 1 - (scrollPosition @ windowHeight);
+            if (opacity < 0) opacity = 0;
+            document.querySelector('h1').style.opacity = opacity;
+        });
+    </script>
+<script>
+    // Create the scene, camera, and renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.id = 'bgCanvas'; // Assign an ID for styling
+    document.body.appendChild(renderer.domElement);
+
+    // Create particle geometry with random positions
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 5000; // Number of particles
+    const posArray = new Float32Array(particlesCount * 3); // x, y, z coordinates
+    for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 10; // Random positions within a 10-unit cube
+    }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    // Define particle material (golden dots)
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.005, // Small particle size
+        color: 0xFFD700, // Gold color
+    });
+
+    // Create and add particles to the scene
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    // Position the camera
+    camera.position.z = 5;
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        particles.rotation.y += 0.001; // Slow rotation for subtle movement
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Handle window resizing
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+</script>
+    <script>
+        const svg = document.getElementById('gcmsSvg');
+        const maskCircle = document.getElementById('maskCircle');
+
+        svg.addEventListener('mousemove', (e) => {
+            // Convert mouse coordinates to SVG coordinates
+            const pt = svg.createSVGPoint();
+            pt.x = e.clientX;
+            pt.y = e.clientY;
+            const svgPt = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+            // Move the mask circle to the mouse position
+            maskCircle.setAttribute('cx', svgPt.x);
+            maskCircle.setAttribute('cy', svgPt.y);
+        });
+
+        svg.addEventListener('mouseleave', () => {
+            // Move the mask circle off-canvas when mouse leaves
+            maskCircle.setAttribute('cx', '-100');
+            maskCircle.setAttribute('cy', '-100');
+        });
+    </script>
+
+</body>
+</html>
